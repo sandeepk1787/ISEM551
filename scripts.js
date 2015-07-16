@@ -12,3 +12,7 @@ function submitFunction() {
 	resetFunction();
 }
 
+function pageRefresh() {
+	location.reload();
+}
+

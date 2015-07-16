@@ -1,14 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Assisgnment-1</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <div id="page">
+    <div id="page" ng-controller="ExampleController">
 
         <div id="header">
             <h1>ISEM 551</h1>
@@ -17,6 +21,13 @@
         </div>
 
         <script src="scripts.js"></script>
+		<script>
+			var app = angular.module('myApp', []);
+			app.controller('validator', function($scope) {
+			$scope.user = 'Sandeep Reddy';
+			$scope.lastName = 'Kesireddy';
+			});
+		</script>
 
         <div id="bar">
 
@@ -36,22 +47,28 @@
             <h1>Contact Us</h1></div>
         <div class="contentText">
 
-            <form id="ContactUsForm">
+            <form ng-app="myApp" ng-controller="validator" name="myForm" novalidate>
                 <table>
                     <tr>
                         <td>
                             First Name:
                         </td>
                         <td>
-                            <input id="Text1" type="text" />
+                            <input id="Text1" type="text" name="user" ng-model="user" required>	
+							<span style="color:red;" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+								<span ng-show="myForm.user.$error.required">First Name is required.</span>
+							</span>							
                         </td>
-                    </tr>
+					</tr>
                     <tr>
                         <td>
                             Last Name:
                         </td>
                         <td>
-                            <input id="Text2" type="text" />
+                            <input id="Text2" type="text" name="lastName" ng-model="lastName" required>
+							<span style="color:red" ng-show="myForm.lastName.$dirty && myForm.lastName.$invalid">
+								<span ng-show="myForm.lastName.$error.required">Last Name is required.</span>
+							</span>
                         </td>
                     </tr>
                     <tr>
@@ -59,21 +76,22 @@
                             Enquiry:
                         </td>
                         <td>
-                            <textarea id="TextArea1" cols="20" rows="2" style="margin: 0px; width: 579px; height: 60px;"></textarea>
+                            <textarea id="TextArea1" cols="20" rows="2" style="margin: 0px; width: 579px; height: 60px;" class="form-control" rows="5"></textarea>
                         </td>
                     </tr>
 
                     <tr>
                         <td>
-                            <input id="Submit1" type="submit" value="Submit" onclick="submitFunction()" />
+                            <input id="Submit1" type="submit" value="Submit" onclick="submitFunction()" class="form-control"
+							ng-disabled="myForm.user.$dirty && myForm.user.$invalid || myForm.lastName.$dirty && myForm.lastName.$invalid"/>
                         </td>
                         <td>
-                            <input id="Reset1" type="reset" value="Reset" onclick="resetFunction()" />
+                            <input id="Reset1" type="reset" value="Reset" onclick="pageRefresh()" />
                         </td>
                     </tr>
                 </table>
             </form>
-
+			
         </div>
 
 
